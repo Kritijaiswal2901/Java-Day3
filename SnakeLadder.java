@@ -47,9 +47,13 @@ public class SnakeLadder {
     public static void main(String[] args) {
         System.out.println("Welcome to Snake and Ladder game");
         SnakeLadder player1 = new SnakeLadder();
+        int player1DiceCount = 0;
 
         while(!player1.isReached100()) {
             player1.play();
+            player1DiceCount++;
         }
+
+        System.out.println("Total Dice Count to Win: " + player1DiceCount);
     }
 }
