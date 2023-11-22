@@ -28,13 +28,13 @@ public class SnakeLadder {
         int chance = random.nextInt(3);
         int dice = this.getDiceNumber();
         
-        System.out.println("Player " + this.playerId + "chance: ");
+        System.out.println("Player " + this.playerId + " chance: ");
         System.out.println("Player got: " + dice);
         if(chance == LADDER) {
             if(this.currentPosition + dice <= 100) {
                 this.currentPosition += dice;
-                this.play();
                 System.out.println("Got Ladder and move ahead and now at " + this.currentPosition);
+                this.play();
             } else {
                 System.out.println("Got Ladder but cant move and move ahead and now at " + this.currentPosition);
             }
