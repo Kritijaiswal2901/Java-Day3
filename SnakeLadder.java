@@ -2,11 +2,16 @@ import java.util.Random;
 
 public class SnakeLadder {
 
+    int playerId;
     final int NO_PLAY = 0;
     final int SNAKE = 0;
     final int LADDER = 0;
 
     int currentPosition = 0;
+
+    public SnakeLadder(int id) {
+        this.playerId = id;
+    }
 
     private int getDiceNumber() {
         Random random = new Random();
@@ -23,10 +28,12 @@ public class SnakeLadder {
         int chance = random.nextInt(3);
         int dice = this.getDiceNumber();
         
+        System.out.println("Player " + this.playerId + "chance: ");
         System.out.println("Player got: " + dice);
         if(chance == LADDER) {
             if(this.currentPosition + dice <= 100) {
                 this.currentPosition += dice;
+                this.play();
                 System.out.println("Got Ladder and move ahead and now at " + this.currentPosition);
             } else {
                 System.out.println("Got Ladder but cant move and move ahead and now at " + this.currentPosition);
@@ -46,14 +53,25 @@ public class SnakeLadder {
     
     public static void main(String[] args) {
         System.out.println("Welcome to Snake and Ladder game");
-        SnakeLadder player1 = new SnakeLadder();
+        SnakeLadder player1 = new SnakeLadder(1);
+        SnakeLadder player2 = new SnakeLadder(2);
         int player1DiceCount = 0;
+        int player2DiceCount = 0;
 
-        while(!player1.isReached100()) {
+        while(!player1.isReached100() && !player2.isReached100()) {
             player1.play();
             player1DiceCount++;
+            player2.play();
+            player2DiceCount++;
         }
 
-        System.out.println("Total Dice Count to Win: " + player1DiceCount);
+        if(player1.isReached100()) {
+            System.out.println("Player 1 Won.");
+            System.out.println("Total Dice Count: " + player1DiceCount);
+        } else {
+            System.out.println("Player 2 Won.");
+            System.out.println("Total Dice Count: " + player2DiceCount);
+        }
+
     }
 }
