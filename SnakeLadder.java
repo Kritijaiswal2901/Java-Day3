@@ -13,6 +13,10 @@ public class SnakeLadder {
         int num = random.nextInt(6) + 1;
         return num;
     }
+
+    private Boolean isReached100() {
+        return this.currentPosition == 100;
+    }
     
     private void play() {
         Random random = new Random();
@@ -21,11 +25,20 @@ public class SnakeLadder {
         
         System.out.println("Player got: " + dice);
         if(chance == LADDER) {
-            this.currentPosition += dice;
-            System.out.println("Got Ladder and move ahead and now at " + this.currentPosition);
+            if(this.currentPosition + dice <= 100) {
+                this.currentPosition += dice;
+                System.out.println("Got Ladder and move ahead and now at " + this.currentPosition);
+            } else {
+                System.out.println("Got Ladder but cant move and move ahead and now at " + this.currentPosition);
+            }
         } else if(chance == SNAKE) {
             this.currentPosition -= dice;
-            System.out.println("Got Snake and move backward and now at " + this.currentPosition);
+            if(this.currentPosition < 0) {
+                this.currentPosition = 0;
+                System.out.println("Got Snake and move backward and get restarted and now at " + this.currentPosition);
+            } else {
+                System.out.println("Got Snake and move backward and now at " + this.currentPosition);
+            }
         } else {
             System.out.println("Got Not play and stay at same position at " + this.currentPosition);
         }
@@ -35,6 +48,8 @@ public class SnakeLadder {
         System.out.println("Welcome to Snake and Ladder game");
         SnakeLadder player1 = new SnakeLadder();
 
-        player1.play();
+        while(!player1.isReached100()) {
+            player1.play();
+        }
     }
 }
